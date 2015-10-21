@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Sensor Warehousing</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+<nav class="top-bar" data-topbar role="navigation">
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Data Sensor Warehousing</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="active"><a href="#">Temp. Rate</a></li>
+	  <li class="active"><a href="#">Weather Forecasting</a></li>
+    </ul>
+
+    <!-- Left Nav Section -->
+  </section>
+</nav>    
+		<div class="row">
+          
+            <div class="panel">
+				<p align="center"><strong>This is data sensor warehousing.</strong> You can monitoring weather and temperature in your city</p>
+            </div>
+        
+        </div class="row">
+			<div class="panel">
+			<div class="panel-heading">
+			<h4 class="panel-title"></i>Kab. Sleman Temperature Rate Chart</h3>
+			</div>
+			<div id="graph" class="panel-body" style="position:relative;">
+			              <?php
+              $json = file_get_contents('http://ehealth.grupi.org/json.php');
+              $obj = json_decode($json);
+              ?>
+              <script type="text/javascript">
+              $(document).ready(function(){
+                var day_data = <?php echo $json; ?>; //ambil dari api.grupi.org/db/sensor
+                Morris.Line({
+                element: 'graph',
+                data: day_data,
+                xkey: ['date_sensor'],
+                ykeys: ['sensor'],
+                labels: ['sensor','date-sensor'],
+                resize: true
+                });
+                });
+              </script>
+			</div>
+			</div>
+		<div>
+		
+		</div>
+    
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
